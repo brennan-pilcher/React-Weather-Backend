@@ -1,0 +1,23 @@
+{
+  "name": "React-Weather-Backend",
+  "version": "1.0.0",
+  "description": "React Weather backend",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"test command\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/brennan-pilcher/React-Weather-Backend.git"
+  },
+  "author": "brennan.pilcher@gmail.com",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/brennan-pilcher/React-Weather-Backend/issues"
+  },
+  "homepage": "https://github.com/brennan-pilcher/React-Weather-Backend#readme",
+  "dependencies": {
+    "@azure/identity": "^3.0.0",
+    "node-fetch": "^2.6.7"
+  }
+}
