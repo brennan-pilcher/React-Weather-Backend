@@ -32,15 +32,12 @@ module.exports = async function (context, req) {
           };
         } else {
           context.res = {
-            status: data.status,
-            body: { error: 'Something went wrong.' },
+            status: res.status,
+            body: { error: 'Something went wrong.', responseBody: context.res.body },
             contentType: 'application/json'
           };
         }
       });
-
-
-    res.json(response);
   } catch (err) {
     context.log(err)
     context.res = {
