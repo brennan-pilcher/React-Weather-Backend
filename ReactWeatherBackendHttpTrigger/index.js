@@ -2,7 +2,7 @@ const fetch = require('node-fetch');
 
 const API_KEY = process.env.OPENWEATHERMAP_API_KEY;
 
-const constructRequestURL = (location) => 'https://api.openweathermap.org/data/2.5/forecast?' + location + '&units=kelvin&APPID=' + process.env.API_KEY;
+const constructRequestURL = (location) => 'https://api.openweathermap.org/data/2.5/forecast?' + location + '&units=kelvin&APPID=' + API_KEY;
 
 const sendApiRequest = async (url) => fetch(url);
 
@@ -22,24 +22,23 @@ module.exports = async function (context, req) {
       res.status(400).send('Invalid request. Must use zip or latlong.');
     }
 
-    const response = await sendApiRequest(requestURL)
-      .then((res) => {
-        context.log("RESPONSE", res)
+    const response = await sendApiRequest(requestURL);
 
-        if (res.status === 200) {
-          context.res = {
-            status: 200,
-            body: res.body,
-            contentType: 'application/json'
-          };
-        } else {
-          context.res = {
-            status: res.status,
-            body: { error: 'Something went wrong.', responseBody: res.body },
-            contentType: 'application/json'
-          };
-        }
-      });
+    context.log("RESPONSE", response);
+
+    if (response.status === 200) {
+      context.response = {
+        status: 200,
+        body: response.body,
+        contentType: 'application/json'
+      };
+    } else {
+      context.response = {
+        status: response.status,
+        body: { error: 'Something went wrong.', responseBody: response.body },
+        contentType: 'application/json'
+      };
+    }
   } catch (err) {
     context.log(err)
     context.res = {
