@@ -1,6 +1,6 @@
 const fetch = require('node-fetch');
 
-const API_KEY = process.env.OPENWEATHERAPI_API_KEY;
+const API_KEY = process.env.OPENWEATHERMAP_API_KEY;
 
 const constructRequestURL = (location) => 'https://api.openweathermap.org/data/2.5/forecast?' + location + '&units=kelvin&APPID=' + process.env.API_KEY;
 
