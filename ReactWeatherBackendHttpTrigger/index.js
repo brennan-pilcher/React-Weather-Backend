@@ -24,6 +24,8 @@ module.exports = async function (context, req) {
 
     const response = await sendApiRequest(requestURL)
       .then((res) => {
+        context.log("RESPONSE", res)
+
         if (res.status === 200) {
           context.res = {
             status: 200,
@@ -33,7 +35,7 @@ module.exports = async function (context, req) {
         } else {
           context.res = {
             status: res.status,
-            body: { error: 'Something went wrong.', responseBody: context.res.body },
+            body: { error: 'Something went wrong.', responseBody: res.body },
             contentType: 'application/json'
           };
         }
