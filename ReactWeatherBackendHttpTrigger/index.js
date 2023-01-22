@@ -17,22 +17,32 @@ module.exports = async function (context, req) {
       context.log('Using latlong', req);
       requestURL = constructRequestURL(req.body.latlong);
     } else {
-      res.status(400).send('Invalid request. Must use zip or latlong.');
+      const err = 'Invalid request. Must use zip or latlong.';
+      context.log(err);
+
+      context.res = {
+        status: 400,
+        message: err
+      };
+
+      return;
     }
 
     const response = await sendApiRequest(requestURL)
-    context.log("RESPONSE", response)
+    const data = response.json();
+    
+    context.log("RESPONSE", data)
 
-    if (response.status === 200) {
+    if (data.status === 200) {
       context.res = {
         status: 200,
-        body: response.body,
+        body: data.body,
         contentType: 'application/json'
       };
     } else {
       context.res = {
-        status: response.status,
-        body: { error: 'Something went wrong.', responseBody: response.body },
+        status: data.status,
+        body: { error: 'Something went wrong.', data: data },
         contentType: 'application/json'
       };
     }
