@@ -2,8 +2,6 @@ const fetch = require('node-fetch');
 
 const constructRequestURL = (location) => 'https://api.openweathermap.org/data/2.5/forecast?' + location + '&units=kelvin&APPID=' + process.env.OPENWEATHERMAP_API_KEY;
 
-const sendApiRequest = async (url) => await fetch(url);
-
 module.exports = async function (context, req) {
   try {
     context.log('Invoked', req);
@@ -28,7 +26,7 @@ module.exports = async function (context, req) {
       return;
     }
 
-    const response = await sendApiRequest(requestURL)
+    const response = await fetch(requestURL);
     const data = response.json();
     
     context.log("RESPONSE", data)
