@@ -2,7 +2,7 @@ const fetch = require('node-fetch');
 
 const constructRequestURL = (location) => 'https://api.openweathermap.org/data/2.5/forecast?' + location + '&units=kelvin&APPID=' + process.env.OPENWEATHERMAP_API_KEY;
 
-const sendApiRequest = async (url) => fetch(url);
+const sendApiRequest = async (url) => await fetch(url);
 
 module.exports = async function (context, req) {
   try {
@@ -33,15 +33,15 @@ module.exports = async function (context, req) {
     
     context.log("RESPONSE", data)
 
-    if (data.status === 200) {
+    if (response.status === 200) {
       context.res = {
         status: 200,
-        body: data.body,
+        body: { data },
         contentType: 'application/json'
       };
     } else {
       context.res = {
-        status: data.status,
+        status: response.status,
         body: { error: 'Something went wrong.', data: data },
         contentType: 'application/json'
       };
