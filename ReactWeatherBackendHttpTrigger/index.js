@@ -27,7 +27,7 @@ module.exports = async function (context, req) {
     }
 
     const response = await fetch(requestURL);
-    const data = response.json();
+    const data = await response.json();
     
     context.log("RESPONSE", data)
 
